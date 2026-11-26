@@ -50,7 +50,7 @@ Camera cho biết màu xe, kiểu thân xe và đầu/đuôi xe. LiDAR cung cấ
 | Bus | s01f19, 2 | Bus | 12.300 × 2.650 × 3.120 | Đã đối chiếu hình học và camera; hướng người còn cần xác nhận |
 | Pedestrian | s01f19, 8 | Pedestrian | 0.600 × 0.600 × 1.700 | Đã đối chiếu hình học và camera; hướng người còn cần xác nhận |
 
-Ảnh: t2-a-car.jpg, t2-b-bus-truck.jpg, t2-c-ped-cyclist.jpg. Screenshot và ID giao diện có thể khác idx bảng A; đối chiếu bằng frame, class và vị trí. Vòng hiệu chuẩn chung và kiểm chéo trực tiếp với bạn học chưa thực hiện, không khai đã tham gia. Bỏ qua cây, hàng rào, xe hai bánh dựng không có người, và các cụm không đủ cơ sở (LOW_VISIBILITY/UNCERTAIN_CLASS).
+Ảnh: t2-a-car.jpg, t2-b-bus-truck.jpg, t2-c-ped-cyclist.jpg. Screenshot và ID giao diện có thể khác idx bảng A; đối chiếu bằng frame, class và vị trí. Vòng hiệu chuẩn chung chưa thực hiện, không khai đã tham gia. Kiểm chéo với bạn học được ghi ở mục 5. Bỏ qua cây, hàng rào, xe hai bánh dựng không có người, và các cụm không đủ cơ sở (LOW_VISIBILITY/UNCERTAIN_CLASS).
 
 ## 4. Bốn hiện tượng chất lượng
 
@@ -96,7 +96,7 @@ Sau sync đã sửa một đề xuất xe bị trùng phía sau thành hộp c�
 
 - s03f19 #4 Cyclist: 279 điểm sát ngay ngoài mép (quá chật, hay vật bên cạnh?). Giữ để rà soát: có điểm sát biên, có thể thuộc vật bên cạnh; chưa đủ cơ sở nới hộp chỉ nhằm xóa cờ.
 
-Kiểm chéo: chưa có bạn học kiểm trực tiếp; không có MSSV hay kết quả kiểm chéo để khai. Đây là phần còn thiếu của quy trình lớp.
+Kiểm chéo: người kiểm có mã số kết thúc bằng **03061** (học viên cung cấp 5 số cuối, chưa có MSSV đầy đủ). Theo xác nhận của học viên, đã đối chiếu với bạn và các số được kiểm đều khớp, không có sai lệch cần sửa. Chưa ghi cụ thể hai số đã đối chiếu vì học viên chưa cung cấp danh sách đó; không tự suy đoán nội dung kiểm.
 
 ## 6. Ý nghĩa của nhãn, AI và điều còn chưa chắc
 
@@ -106,4 +106,4 @@ Công cụ: Codex, Python/scipy và CVAT local; sử dụng AI label theo xác n
 Câu hỏi chính: phân tích cụm LiDAR, đối chiếu camera, tạo cuboid và hoàn thiện xuất/kiểm bài nộp.
 Cách dùng: AI tạo đề xuất, loại các cụm nền rõ ràng, nhập nhãn, trích số vào báo cáo; không dùng nhãn chuẩn, không tuyên bố nhãn đạt IoU/recall chuẩn. Cần học viên review cuối về class, yaw, occluded và kích thước suy luận.
 
-Các giới hạn: chưa xác nhận ví dụ điểm lạ; ảnh top còn xiên và chưa đánh dấu trục; chưa hiệu chuẩn/đổi kiểm với bạn; yaw người và cyclist còn chưa chắc; xe tải chỉ thấy chủ yếu phần đầu nên chiều dài suy luận còn yếu. Checker chỉ kiểm cấu trúc và tính nhất quán file, không chứng minh các nội dung này đã đạt rubric. ZIP ảnh giữ local cho LMS, không đưa ảnh/dữ liệu lên GitHub. Bài được push sau deadline mặc định của ngày hôm trước; xử lý nộp muộn theo coach.
+Các giới hạn: chưa xác nhận ví dụ điểm lạ; ảnh top còn xiên và chưa đánh dấu trục; chưa tham gia vòng hiệu chuẩn chung; mục kiểm chéo đã có xác nhận khớp từ học viên nhưng còn thiếu MSSV đầy đủ và hai số cụ thể đã kiểm; yaw người và cyclist còn chưa chắc; xe tải chỉ thấy chủ yếu phần đầu nên chiều dài suy luận còn yếu. Checker chỉ kiểm cấu trúc và tính nhất quán file, không chứng minh các nội dung này đã đạt rubric. ZIP ảnh giữ local cho LMS, không đưa ảnh/dữ liệu lên GitHub. Bài được push sau deadline mặc định của ngày hôm trước; xử lý nộp muộn theo coach.
