@@ -96,7 +96,7 @@ Sau sync đã sửa một đề xuất xe bị trùng phía sau thành hộp c�
 
 - s03f19 #4 Cyclist: 279 điểm sát ngay ngoài mép (quá chật, hay vật bên cạnh?). Giữ để rà soát: có điểm sát biên, có thể thuộc vật bên cạnh; chưa đủ cơ sở nới hộp chỉ nhằm xóa cờ.
 
-Kiểm chéo: người kiểm có mã số kết thúc bằng **03061** (học viên cung cấp 5 số cuối, chưa có MSSV đầy đủ). Theo xác nhận của học viên, đã đối chiếu với bạn và các số được kiểm đều khớp, không có sai lệch cần sửa. Chưa ghi cụ thể hai số đã đối chiếu vì học viên chưa cung cấp danh sách đó; không tự suy đoán nội dung kiểm.
+Kiểm chéo: người kiểm có MSSV **2A202603061**. Theo xác nhận của học viên, đã đối chiếu với bạn và các số được kiểm đều khớp, không có sai lệch cần sửa. Chưa xác định hai số cụ thể đã được đối chiếu ở lần kiểm trước. Hai giá trị được chọn để kiểm bổ sung: s01f19 #1 Car, `z_bottom = -1.800 m` và `dist_m = 4.78 m`; cần xác nhận đối chiếu hai giá trị này trước khi ghi là đã kiểm.
 
 ## 6. Ý nghĩa của nhãn, AI và điều còn chưa chắc
 
@@ -106,4 +106,4 @@ Công cụ: Codex, Python/scipy và CVAT local; sử dụng AI label theo xác n
 Câu hỏi chính: phân tích cụm LiDAR, đối chiếu camera, tạo cuboid và hoàn thiện xuất/kiểm bài nộp.
 Cách dùng: AI tạo đề xuất, loại các cụm nền rõ ràng, nhập nhãn, trích số vào báo cáo; không dùng nhãn chuẩn, không tuyên bố nhãn đạt IoU/recall chuẩn. Cần học viên review cuối về class, yaw, occluded và kích thước suy luận.
 
-Các giới hạn: chưa xác nhận ví dụ điểm lạ; ảnh top còn xiên và chưa đánh dấu trục; chưa tham gia vòng hiệu chuẩn chung; mục kiểm chéo đã có xác nhận khớp từ học viên nhưng còn thiếu MSSV đầy đủ và hai số cụ thể đã kiểm; yaw người và cyclist còn chưa chắc; xe tải chỉ thấy chủ yếu phần đầu nên chiều dài suy luận còn yếu. Checker chỉ kiểm cấu trúc và tính nhất quán file, không chứng minh các nội dung này đã đạt rubric. ZIP ảnh giữ local cho LMS, không đưa ảnh/dữ liệu lên GitHub. Bài được push sau deadline mặc định của ngày hôm trước; xử lý nộp muộn theo coach.
+Các giới hạn: chưa xác nhận ví dụ điểm lạ; ảnh top còn xiên và chưa đánh dấu trục; chưa tham gia vòng hiệu chuẩn chung; mục kiểm chéo đã có xác nhận khớp từ học viên nhưng còn thiếu xác nhận hai số cụ thể đã kiểm; yaw người và cyclist còn chưa chắc; xe tải chỉ thấy chủ yếu phần đầu nên chiều dài suy luận còn yếu. Checker chỉ kiểm cấu trúc và tính nhất quán file, không chứng minh các nội dung này đã đạt rubric. ZIP ảnh giữ local cho LMS, không đưa ảnh/dữ liệu lên GitHub. Bài được push sau deadline mặc định của ngày hôm trước; xử lý nộp muộn theo coach.
