@@ -21,12 +21,12 @@ CVAT: kéo trái để xoay, kéo phải để dời, con lăn để zoom. Cuboi
 
 ## 2. Đọc frame
 
-Hệ VF: +x sang trái, +y ra sau, +z lên; phía trước là −y. Hai ảnh hậu tố top đã thay bằng phép chiếu trực giao XY/BEV tính từ LiDAR gốc và bảng A, không phối cảnh: trước −y hướng lên, +x hướng trái, +y hướng xuống, +z về phía người xem; có mũi tên và thang mét. Đây là ảnh chẩn đoán dựng bằng Python, được ghi rõ trên ảnh, không phải screenshot CVAT. Các ảnh còn lại là screenshot CVAT. Nếu coach bắt buộc cả hai ảnh top phải chụp trực tiếp trong CVAT, cần thay bằng screenshot tương ứng; không khai ảnh dựng là screenshot.
+Hệ VF: +x sang trái, +y ra sau, +z lên; phía trước là −y. Hai ảnh hậu tố top hiện là screenshot thật của khung Top trực giao trong CVAT, đã phóng lớn và thu nhỏ để thấy cảnh xung quanh. Thêm bảng chú thích hướng trên ảnh: phía trước −y sang phải, +x hướng lên, +y sang trái, +z về phía người xem. Khung chú thích là phần đánh dấu bổ sung, không phải công cụ trục có sẵn của CVAT; ảnh gốc chưa đánh dấu được giữ local trong work/ai/. Ảnh dựng bằng Python trước đó đã được thay khỏi ZIP nộp bài.
 
 | Frame | Trục và phía trước | Mặt đường | Vật và tầm quan sát | Hai bên/phía sau | Cụm chưa rõ |
 |---|---|---|---|---|---|
-| s01f19 | −y về phía xe buýt; +x bên trái xe thu, +y ngược hướng đó | Đường gần phẳng nhưng z thay đổi theo vị trí, khoảng −1,7 đến −2,0 m | Xe con, Bus, người trên vỉa hè; đã gán xe ở khoảng 40 m | Xe con phía sau ở cam05/08/09 | Cụm cây và người thưa ở lề |
-| s01f57 | −y theo hàng xe phía trước; cùng quy ước +x/+y | Đường gần phẳng, khoảng −1,7 m | Nhiều Car đang xếp hàng, xe phía xa bị che | Có xe sát trái và xe phía sau | Người và xe hai bánh sát vỉa hè khó tách |
+| s01f19 | Trên screenshot Top: −y sang phải về phía xe buýt; +x lên, +y trái | Đường gần phẳng nhưng z thay đổi theo vị trí, khoảng −1,7 đến −2,0 m | Xe con, Bus, người trên vỉa hè; đã gán xe ở khoảng 40 m | Xe con phía sau ở cam05/08/09 | Cụm cây và người thưa ở lề |
+| s01f57 | Trên screenshot Top: −y sang phải theo hàng xe; +x lên, +y trái | Đường gần phẳng, khoảng −1,7 m | Nhiều Car đang xếp hàng, xe phía xa bị che | Có xe sát trái và xe phía sau | Người và xe hai bánh sát vỉa hè khó tách |
 
 Ảnh: t1-s01f19-3d.jpg, t1-s01f19-top.jpg, t1-s01f57-3d.jpg, t1-s01f57-top.jpg.
 Camera cho biết màu xe, kiểu thân xe và đầu/đuôi xe. LiDAR cung cấp tọa độ theo mét, hình học bề mặt và độ cao tương đối với mặt đường. Các nhận xét này do AI hỗ trợ quan sát.
@@ -102,4 +102,4 @@ Công cụ: Codex, Python/scipy và CVAT local; sử dụng AI label theo xác n
 Câu hỏi chính: phân tích cụm LiDAR, đối chiếu camera, tạo cuboid và hoàn thiện xuất/kiểm bài nộp.
 Cách dùng: AI tạo đề xuất, loại các cụm nền rõ ràng, nhập nhãn, trích số vào báo cáo; không dùng nhãn chuẩn, không tuyên bố nhãn đạt IoU/recall chuẩn. Cần học viên review cuối về class, yaw, occluded và kích thước suy luận.
 
-Các giới hạn còn lại: hai ảnh top là BEV trực giao dựng từ dữ liệu, chưa phải screenshot CVAT theo yêu cầu nguyên văn; đã thực hành task chung và học viên xác nhận coach đã xác nhận phần hiệu chuẩn; chưa có bảng so độ lệch của lớp trong hồ sơ này. Đã kiểm chéo hai giá trị với bạn 2A202603061, học viên xác nhận cả hai khớp. Còn một cảnh báo cyclist sát hàng rào; yaw và phần bị che vẫn cần xem như ước lượng. Xe tải chỉ thấy chủ yếu phần đầu nên chiều dài suy luận còn yếu. Checker kiểm tính nhất quán hồ sơ, không xác nhận IoU/recall chuẩn. ZIP ảnh mới phải nộp lại trên LMS; dữ liệu và ảnh vẫn không đưa lên GitHub.
+Các giới hạn còn lại: đã thực hành task chung và học viên xác nhận coach đã xác nhận phần hiệu chuẩn; chưa có bảng so độ lệch của lớp trong hồ sơ này. Đã kiểm chéo hai giá trị với bạn 2A202603061, học viên xác nhận cả hai khớp. Còn một cảnh báo cyclist sát hàng rào; yaw và phần bị che vẫn cần xem như ước lượng. Xe tải chỉ thấy chủ yếu phần đầu nên chiều dài suy luận còn yếu. Checker kiểm tính nhất quán hồ sơ, không xác nhận IoU/recall chuẩn. ZIP ảnh mới phải nộp lại trên LMS; dữ liệu và ảnh vẫn không đưa lên GitHub.
