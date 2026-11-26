@@ -2,7 +2,7 @@
 
 ## 1. Kết luận trước
 
-Task `D13-2A202603217`, CVAT local 2.74.1, Windows, Chrome. Bài thực hiện với AI hỗ trợ theo xác nhận của học viên rằng coach đã cho phép. Đây là nhãn AI hỗ trợ và đã rà soát camera, không phải toàn bộ cuboid được học viên vẽ tay. Có 80 cuboid dạng Shape trên 10 frame; frame ít nhất là s02f37 (5 hộp). Phiếu tự kiểm có 3/80 hộp bị cờ. Không có nhãn chuẩn để xác nhận recall hay IoU. Phần còn yếu: kích thước suy luận từ bề mặt nhìn thấy, yaw người/xe hai bánh và vật bị che.
+Task `D13-2A202603217`, CVAT local 2.74.1, Windows, Chrome. Bài thực hiện với AI hỗ trợ theo xác nhận của học viên rằng coach đã cho phép. Đây là nhãn AI hỗ trợ và đã rà soát camera, không phải toàn bộ cuboid được học viên vẽ tay. Có 80 cuboid dạng Shape trên 10 frame; frame ít nhất là s02f37 (5 hộp). Phiếu tự kiểm có 1/80 hộp bị cờ. Không có nhãn chuẩn để xác nhận recall hay IoU. Phần còn yếu: kích thước suy luận từ bề mặt nhìn thấy, yaw người/xe hai bánh và vật bị che.
 
 CVAT: kéo trái để xoay, kéo phải để dời, con lăn để zoom. Cuboid dùng Shape, kiểm Top/Side/Front, chỉnh yaw quanh z; bật Cuboid orientation và chạy preview để đối chiếu camera. Nhãn được nhập qua API và xuất bằng script gốc. Server cũ cần 16 số: 9 tham số vị trí/quay/scale và 7 số 0 theo định dạng của giao diện bản này. Không sửa công cụ được bảo vệ.
 
@@ -21,7 +21,7 @@ CVAT: kéo trái để xoay, kéo phải để dời, con lăn để zoom. Cuboi
 
 ## 2. Đọc frame
 
-Hệ VF: +x sang trái, +y ra sau, +z lên; phía trước là −y. Ảnh trong ZIP là screenshot thật từ CVAT. Hai ảnh mang hậu tố top hiện còn là góc nhìn xiên, chưa đạt ảnh BEV vuông góc có mũi tên đánh dấu như hướng dẫn; cần bổ sung khi học viên rà soát.
+Hệ VF: +x sang trái, +y ra sau, +z lên; phía trước là −y. Hai ảnh hậu tố top đã thay bằng phép chiếu trực giao XY/BEV tính từ LiDAR gốc và bảng A, không phối cảnh: trước −y hướng lên, +x hướng trái, +y hướng xuống, +z về phía người xem; có mũi tên và thang mét. Đây là ảnh chẩn đoán dựng bằng Python, được ghi rõ trên ảnh, không phải screenshot CVAT. Các ảnh còn lại là screenshot CVAT. Nếu coach bắt buộc cả hai ảnh top phải chụp trực tiếp trong CVAT, cần thay bằng screenshot tương ứng; không khai ảnh dựng là screenshot.
 
 | Frame | Trục và phía trước | Mặt đường | Vật và tầm quan sát | Hai bên/phía sau | Cụm chưa rõ |
 |---|---|---|---|---|---|
@@ -50,7 +50,7 @@ Camera cho biết màu xe, kiểu thân xe và đầu/đuôi xe. LiDAR cung cấ
 | Bus | s01f19, 2 | Bus | 12.300 × 2.650 × 3.120 | Đã đối chiếu hình học và camera; hướng người còn cần xác nhận |
 | Pedestrian | s01f19, 8 | Pedestrian | 0.600 × 0.600 × 1.700 | Đã đối chiếu hình học và camera; hướng người còn cần xác nhận |
 
-Ảnh: t2-a-car.jpg, t2-b-bus-truck.jpg, t2-c-ped-cyclist.jpg. Screenshot và ID giao diện có thể khác idx bảng A; đối chiếu bằng frame, class và vị trí. Vòng hiệu chuẩn chung chưa thực hiện, không khai đã tham gia. Kiểm chéo với bạn học được ghi ở mục 5. Bỏ qua cây, hàng rào, xe hai bánh dựng không có người, và các cụm không đủ cơ sở (LOW_VISIBILITY/UNCERTAIN_CLASS).
+Ảnh: t2-a-car.jpg, t2-b-bus-truck.jpg, t2-c-ped-cyclist.jpg. Screenshot và ID giao diện có thể khác idx bảng A; đối chiếu bằng frame, class và vị trí. Đã thực hành bổ sung 3 cuboid (2 Car, 1 Bus) trên s01f19 trong task chung D13-HC485087, chọn vật để tự luyện, không phải 3 vật do coach chỉ định. Đã xuất work/hieuchuan/D13-HC485087-2A202603217-bangA.csv. Quy tắc rút ra từ tự kiểm: phải đối chiếu cả đáy và hướng, giống nhau không chứng minh đúng. Chưa gửi coach, chưa có số liệu của lớp để so độ lệch hay kết luận hiệu chuẩn của coach. Kiểm chéo với bạn học được ghi ở mục 5. Bỏ qua cây, hàng rào, xe hai bánh dựng không có người, và các cụm không đủ cơ sở (LOW_VISIBILITY/UNCERTAIN_CLASS).
 
 ## 4. Bốn hiện tượng chất lượng
 
@@ -59,7 +59,7 @@ Camera cho biết màu xe, kiểu thân xe và đầu/đuôi xe. LiDAR cung cấ
 | Bóng che | s01f19 / t4-1-bong-che.jpg / task cá nhân | Xe buýt có bề mặt gần nhiều điểm, phía khuất ít điểm; giả thuyết do che khuất | Phần không quan sát không đồng nghĩa đường trống; bật occluded cho vật bị che, chỉ suy luận khi đủ cơ sở |
 | Thưa ở xa | s01f57 / t4-2-thua-o-xa.jpg / task cá nhân | Các vật phía xa thưa hơn trên tổng quan; giả thuyết do khoảng cách và góc lấy mẫu | Áp dụng ngưỡng thấy 15–20% thể tích, không đủ thì bỏ qua |
 | Phản xạ thấp | s02f13 / t4-3-phan-xa-thap.jpg / task cá nhân | Xe tối màu có vùng bề mặt thiếu điểm; phản xạ thấp chỉ là giả thuyết, có thể còn do góc nhìn và che khuất | Không kéo hộp theo mọi điểm rời; cần đối chiếu camera |
-| Điểm lạ | s02f13 / t4-4-diem-la.jpg / task cá nhân | Ảnh nghiêng cho thấy điểm rời quanh hộp nhưng chưa xác nhận được một cụm sai hình học; chưa đủ bằng chứng kết luận nhiễu | Không gán các điểm rời thành vật khi chưa đối chiếu; mục này còn thiếu một ví dụ được xác nhận |
+| Điểm lạ | s02f35 / t4-4-diem-la.jpg / task chung D13-HC485087 | Đã xác nhận trong dữ liệu gốc: 50 điểm có z < −8 m, trung vị z ≈ −13,27 m, khoảng cách ngang trung vị ≈ 28,56 m; nền đường gần đó trung vị ≈ −1,80 m. Screenshot nghiêng cho thấy cụm rời sâu dưới đường. Giả thuyết: phản xạ đa đường hoặc lỗi phép đo; chưa kết luận nguyên nhân | Không gán cụm dưới mặt đường thành vật; không kéo cuboid theo các điểm này |
 
 ## 5. Số từ cuboid của tôi
 
@@ -88,13 +88,9 @@ Yaw cùng chiều: s01f19 #1 Car = 270.0°; ngược chiều: s01f19 #5 Car = 90
 
 Xu hướng chung là xa hơn thường ít điểm hơn, nhưng không đơn điệu ở mọi cặp vì che khuất, diện tích nhìn thấy và góc chiếu. Slide tham chiếu trung vị xe con giảm từ khoảng 1968 điểm ở 0–10 m xuống 72 ở 30–40 m; bốn mẫu trên không đại diện cho phân bố toàn bộ dữ liệu.
 
-Sau sync đã sửa một đề xuất xe bị trùng phía sau thành hộp của xe xa khác, điều chỉnh đáy người theo nền cục bộ, và sửa chiều rộng xe bị đặt sai khi cập nhật batch. Đã Save qua API và chạy lại sync. Cờ còn lại:
+Sau sync đã sửa một đề xuất xe bị trùng phía sau thành hộp của xe xa khác, điều chỉnh đáy người theo nền cục bộ, và sửa chiều rộng xe bị đặt sai khi cập nhật batch. Đã Save qua API và chạy lại sync. Rà soát bổ sung ba Cyclist ở s03f19: kiểm các mặt XY/XZ/YZ và camera; sửa yaw từ 0° sang 295°, 290°, 285°, chỉnh tâm để sát cụm xe thay vì kéo theo hàng rào; chiều dài lần lượt 1,95 / 1,95 / 2,00 m. Đã lưu trên CVAT và chạy lại sync. Cờ còn lại:
 
-- s03f19 #1 Cyclist: 113 điểm sát ngay ngoài mép (quá chật, hay vật bên cạnh?). Giữ để rà soát: có điểm sát biên, có thể thuộc vật bên cạnh; chưa đủ cơ sở nới hộp chỉ nhằm xóa cờ.
-
-- s03f19 #2 Cyclist: 141 điểm sát ngay ngoài mép (quá chật, hay vật bên cạnh?). Giữ để rà soát: có điểm sát biên, có thể thuộc vật bên cạnh; chưa đủ cơ sở nới hộp chỉ nhằm xóa cờ.
-
-- s03f19 #4 Cyclist: 279 điểm sát ngay ngoài mép (quá chật, hay vật bên cạnh?). Giữ để rà soát: có điểm sát biên, có thể thuộc vật bên cạnh; chưa đủ cơ sở nới hộp chỉ nhằm xóa cờ.
+- s03f19 #4 Cyclist: 144 điểm sát ngay ngoài mép (quá chật, hay vật bên cạnh?). Đã đối chiếu camera và điểm LiDAR; giữ cờ sát mép vì có hàng rào và vật cạnh bên, không nới hộp chỉ để xóa cờ.
 
 Kiểm chéo: người kiểm có MSSV **2A202603061**. Theo xác nhận của học viên, đã đối chiếu với bạn và các số được kiểm đều khớp, không có sai lệch cần sửa. Học viên xác nhận hai giá trị đã được đối chiếu với bảng A là s01f19 #1 Car, `z_bottom = -1.800 m` và `dist_m = 4.78 m`. Cả hai đều khớp chính xác; không cần sửa số liệu sau kiểm chéo.
 
@@ -106,4 +102,4 @@ Công cụ: Codex, Python/scipy và CVAT local; sử dụng AI label theo xác n
 Câu hỏi chính: phân tích cụm LiDAR, đối chiếu camera, tạo cuboid và hoàn thiện xuất/kiểm bài nộp.
 Cách dùng: AI tạo đề xuất, loại các cụm nền rõ ràng, nhập nhãn, trích số vào báo cáo; không dùng nhãn chuẩn, không tuyên bố nhãn đạt IoU/recall chuẩn. Cần học viên review cuối về class, yaw, occluded và kích thước suy luận.
 
-Các giới hạn: chưa xác nhận ví dụ điểm lạ; ảnh top còn xiên và chưa đánh dấu trục; chưa tham gia vòng hiệu chuẩn chung; đã kiểm chéo hai giá trị với bạn 2A202603061 và học viên xác nhận cả hai khớp; yaw người và cyclist còn chưa chắc; xe tải chỉ thấy chủ yếu phần đầu nên chiều dài suy luận còn yếu. Checker chỉ kiểm cấu trúc và tính nhất quán file, không chứng minh các nội dung này đã đạt rubric. ZIP ảnh giữ local cho LMS, không đưa ảnh/dữ liệu lên GitHub. Bài được push sau deadline mặc định của ngày hôm trước; xử lý nộp muộn theo coach.
+Các giới hạn còn lại: hai ảnh top là BEV trực giao dựng từ dữ liệu, chưa phải screenshot CVAT theo yêu cầu nguyên văn; đã thực hành task chung nhưng chưa có đối chiếu lớp và kết luận của coach. Đã kiểm chéo hai giá trị với bạn 2A202603061, học viên xác nhận cả hai khớp. Còn một cảnh báo cyclist sát hàng rào; yaw và phần bị che vẫn cần xem như ước lượng. Xe tải chỉ thấy chủ yếu phần đầu nên chiều dài suy luận còn yếu. Checker kiểm tính nhất quán hồ sơ, không xác nhận IoU/recall chuẩn. ZIP ảnh mới phải nộp lại trên LMS; dữ liệu và ảnh vẫn không đưa lên GitHub.
